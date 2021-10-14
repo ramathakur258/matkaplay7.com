@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="emitMessage()" type="button">Emit</button>
+        <button onclick="disconnect()" type="button">Disconnect</button>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    var socket = io();
+    function emitMessage(){
+        socket.emit('push_message','Hello World');
+        socket.emit('online',{userid:8});
+    }
+    socket.on('pull_message',function(data){
+        console.log(data);
+    });
+    
+    function disconnect(){
+        socket.emit('offline',{userid:8});
+    }
+    
+    socket.on('online',function(data){
+        console.log(data);
+    });
+    </script>
+</body>
+</html>
